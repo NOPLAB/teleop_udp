@@ -96,11 +96,20 @@ class UdpReceiverNode(Node):
 
             # Convert analog sticks to -1.0 to 1.0 range
             # Center is 128, range is 0-255
+            # Layout matches standard joy_node (PS4/Xbox style):
+            # axes[0]: Left stick X
+            # axes[1]: Left stick Y
+            # axes[2]: L2 trigger (not available via UDP, default 0)
+            # axes[3]: Right stick X
+            # axes[4]: Right stick Y
+            # axes[5]: R2 trigger (not available via UDP, default 0)
             joy_msg.axes = [
                 (lx - 128) / 128.0,   # Left stick X
                 -(ly - 128) / 128.0,  # Left stick Y (inverted)
+                0.0,                  # L2 trigger (placeholder)
                 (rx - 128) / 128.0,   # Right stick X
                 -(ry - 128) / 128.0,  # Right stick Y (inverted)
+                0.0,                  # R2 trigger (placeholder)
             ]
 
             # Convert buttons to list of 0/1
